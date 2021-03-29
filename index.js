@@ -1,9 +1,7 @@
 const core = require(`@actions/core`);
 const github = require(`@actions/github`);
 const azdev = require(`azure-devops-node-api`);
-const showdown  = require('showdown');
-const converter = new showdown.Converter();
-
+const markdown = require( "markdown" ).markdown;
 
 const debug = false; // debug mode for testing...always set to false before doing a commit
 const testPayload = []; // used for debugging, cut and paste payload
@@ -131,7 +129,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/System.Description",
-      value: converter.makeHtml(vm.body),
+      value: markdown.toHTML(vm.body),
     },
     {
       op: "add",
