@@ -128,7 +128,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/System.Description",
-      value: vm.body,
+      value: "<h1>Bug</h1><code>" + vm.body + "</code>",
     },
     {
       op: "add",
