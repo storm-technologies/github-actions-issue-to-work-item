@@ -124,7 +124,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/System.Title",
-      value: vm.title + " (GitHub Issue #" + vm.number + ")",
+      value: vm.title + " (Bug #" + vm.number + ")",
     },
     {
       op: "add",
@@ -139,7 +139,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/System.Tags",
-      value: "GitHub Issue; " + vm.repo_name,
+      value: "Bug; " + vm.repo_name,
     },
     {
       op: "add",
@@ -227,12 +227,12 @@ async function update(vm, workItem) {
 
   if (
     workItem.fields["System.Title"] !=
-    `${vm.title} (GitHub Issue #${vm.number})`
+    `${vm.title} (Bug #${vm.number})`
   ) {
     patchDocument.push({
       op: "add",
       path: "/fields/System.Title",
-      value: vm.title + " (GitHub Issue #" + vm.number + ")",
+      value: vm.title + " (Bug #" + vm.number + ")",
     });
   }
 
@@ -258,7 +258,7 @@ async function update(vm, workItem) {
     patchDocument.push({
       op: "add",
       path: "/fields/System.History",
-      value: "GitHub issue updated by " + vm.user,
+      value: "Bug updated by " + vm.user,
     });
 
     return await updateWorkItem(patchDocument, workItem.id, vm.env);
@@ -278,7 +278,7 @@ async function comment(vm, workItem) {
       value:
         '<a href="' +
         vm.comment_url +
-        '" target="_new">GitHub issue comment added</a> by ' +
+        '" target="_new">Bug comment added</a> by ' +
         vm.user +
         "</br></br>" +
         vm.comment_text,
@@ -338,7 +338,7 @@ async function reopened(vm, workItem) {
   patchDocument.push({
     op: "add",
     path: "/fields/System.History",
-    value: "GitHub issue reopened by " + vm.user,
+    value: "Bug reopened by " + vm.user,
   });
 
   if (patchDocument.length > 0) {
@@ -410,9 +410,9 @@ async function find(vm) {
 
   let wiql = {
     query:
-      "SELECT [System.Id], [System.WorkItemType], [System.Description], [System.Title], [System.AssignedTo], [System.State], [System.Tags] FROM workitems WHERE [System.TeamProject] = @project AND [System.Title] CONTAINS '(GitHub Issue #" +
+      "SELECT [System.Id], [System.WorkItemType], [System.Description], [System.Title], [System.AssignedTo], [System.State], [System.Tags] FROM workitems WHERE [System.TeamProject] = @project AND [System.Title] CONTAINS '(Bug #" +
       vm.number +
-      ")' AND [System.Tags] CONTAINS 'GitHub Issue' AND [System.Tags] CONTAINS '" +
+      ")' AND [System.Tags] CONTAINS 'Bug' AND [System.Tags] CONTAINS '" +
       vm.repository +
       "'",
   };
