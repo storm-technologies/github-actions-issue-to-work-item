@@ -148,7 +148,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/Microsoft.VSTS.TCM.ReproSteps",
-      value: vm.body,
+      value:  markdown.toHTML(vm.body),
     },
     {
       op: "add",
