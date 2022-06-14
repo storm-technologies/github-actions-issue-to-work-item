@@ -119,8 +119,19 @@ async function main() {
 }
 
 const getDomain = (str) => {
+
   if (typeof str !== 'string') return;
-  return new URL(str.match("Source url:(.*)Reported by")[1]?.trim())?.host?.match(/\.(.*)\./)?.[1] + ";" || null  
+
+  const matches = string.match(/\bhttps?:\/\/\S+/gi);
+  if (matches && matches.length > 0) {
+      const url = matches[0];
+      const { hostname } = new URL(url);
+      return hostname?.match(/\.(.*)\./)?.[1] + ";" || null;
+  }
+  else
+  {
+      return null;
+  }
 }
 
 // create Work Item via https://docs.microsoft.com/en-us/rest/api/azure/devops/
