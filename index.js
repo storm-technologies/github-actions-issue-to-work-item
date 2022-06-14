@@ -118,6 +118,11 @@ async function main() {
   }
 }
 
+const getDomain = (str) => {
+  if (typeof str !== 'string') return;
+  return new URL(str.match("Source url:(.*)Reported by")[1]?.trim())?.host?.match(/\.(.*)\./)?.[1] + ";" || null  
+}
+
 // create Work Item via https://docs.microsoft.com/en-us/rest/api/azure/devops/
 async function create(vm) {
   let patchDocument = [
@@ -139,7 +144,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/System.Tags",
-      value: "Bug; " + vm.repo_name,
+      value: "Bug; " + getDomain(vm.body) + vm.repo_name,
     },
     {
       op: "add",
