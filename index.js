@@ -124,9 +124,7 @@ const getDomain = (str) => {
 
   const matches = string.match(/\bhttps?:\/\/\S+/gi);
   if (matches && matches.length > 0) {
-      const url = matches[0];
-      const { hostname } = new URL(url);
-      return hostname?.match(/\.(.*)\./)?.[1] + ";" || null;
+      return new URL(matches[0]).hostname.match(/\.(.*)\./)?.[1] + ";" || null;
   }
   else
   {
