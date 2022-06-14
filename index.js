@@ -122,7 +122,7 @@ const getDomain = (str) => {
 
   if (typeof str !== 'string') return;
 
-  const matches = string.match(/\bhttps?:\/\/\S+/gi);
+  const matches = str.match(/\bhttps?:\/\/\S+/gi);
   if (matches && matches.length > 0) {
       return new URL(matches[0]).hostname + ";" || null;
   }
