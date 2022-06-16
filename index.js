@@ -152,6 +152,11 @@ async function create(vm) {
     },
     {
       op: "add",
+      path: "/fields/System.AssignedTo",
+      value: "Jordan Walker",
+    },
+    {
+      op: "add",
       path: "/fields/System.Tags",
       value: "Bug; " + getDomain(vm.body) + vm.repo_name,
     },
