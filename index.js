@@ -157,6 +157,11 @@ async function create(vm) {
     },
     {
       op: "add",
+      path: "/fields/YBugRequestor",
+      value: vm.body.match(/\*Reported by:\* (.+) \(.+\)/)[1] ?? "",
+    },
+    {
+      op: "add",
       path: "/fields/System.Tags",
       value: "Bug; " + getDomain(vm.body) + vm.repo_name,
     },
