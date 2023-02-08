@@ -134,6 +134,15 @@ const getDomain = (str) => {
 
 // create Work Item via https://docs.microsoft.com/en-us/rest/api/azure/devops/
 async function create(vm) {
+  let loggingUser = vm.body.match(/\*Reported by:\* (.+) \(.+\)/);
+  let logUser = "";
+  if(loggingUser === null) {
+    loggingUser = vm.body.match(/\*Reported by:\* (.+)/);
+  }
+  if(loggingUser !== null) {
+    logUser = loggingUser.length === 2 ? loggingUser[1] : "";
+  }
+
   let patchDocument = [
     {
       op: "add",
@@ -158,7 +167,7 @@ async function create(vm) {
     {
       op: "add",
       path: "/fields/YBugRequestor",
-      value: vm.body.match(/\*Reported by:\* (.+) \(.+\)/)[1] ?? "",
+      value: logUser,
     },
     {
       op: "add",
